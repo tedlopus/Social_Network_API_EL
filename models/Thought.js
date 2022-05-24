@@ -8,12 +8,12 @@ const reactionSchema = new Schema(
       default: () => new Types.ObjectId(),
     },
     reactionBody: {
-      type: STRING,
+      type: String,
       required: true,
       maxLength: 280,
     },
     username: {
-      type: STRING,
+      type: String,
       required: true,
     },
     createdAt: {
@@ -32,7 +32,7 @@ const reactionSchema = new Schema(
 const thoughtSchema = new Schema(
   {
     thoughtText: {
-      type: STRING,
+      type: String,
       required: true,
       minLength: 1,
       maxLength: 280,
@@ -42,7 +42,7 @@ const thoughtSchema = new Schema(
       default: Date.now,
     },
     username: {
-      type: STRING,
+      type: String,
       required: true,
     },
     reactions: [reactionSchema],
@@ -55,8 +55,8 @@ const thoughtSchema = new Schema(
     id: false,
   }
 );
-  thoughtSchema.virtual('fullName').get(function() {
-    return this.name.first + ' ' + this.name.last;
+  thoughtSchema.virtual('reactionTotal').get(function() {
+    return this.reactions.length;
   });
 
 
