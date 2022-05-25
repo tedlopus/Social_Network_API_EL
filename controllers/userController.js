@@ -24,7 +24,7 @@ module.exports = {
       .select('-__v')
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with that ID.' })
+          ? res.status(404).json({ message: 'No user found with that id!' })
           : res.json({
               user,
             })
@@ -47,7 +47,7 @@ module.exports = {
     User.findOneAndRemove({ _id: req.params.userId })
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No such user exists.' })
+          ? res.status(404).json({ message: 'No such user exists!' })
           : Thought.findOneAndUpdate(
               { users: req.params.userId },
               { $pull: { users: req.params.userId } },
@@ -57,9 +57,9 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({
-              message: 'User deleted, but no thoughts found.',
+              message: 'User deleted, but no thoughts found!',
             })
-          : res.json({ message: 'User successfully deleted.' })
+          : res.json({ message: 'User successfully deleted!' })
       )
       .catch((err) => {
         console.log(err);
@@ -80,7 +80,7 @@ module.exports = {
         !user
           ? res
               .status(404)
-              .json({ message: 'No user found with that ID.' })
+              .json({ message: 'No user found with that id!' })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err.message));
@@ -97,7 +97,7 @@ module.exports = {
         !user
           ? res
               .status(404)
-              .json({ message: 'No user found with that ID.' })
+              .json({ message: 'No user found with that id!' })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err.message));
