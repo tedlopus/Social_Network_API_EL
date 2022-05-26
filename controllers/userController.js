@@ -18,7 +18,7 @@ module.exports = {
       });
   },
 
-  // Get a single user
+  // Get a single user by id
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
@@ -65,6 +65,21 @@ module.exports = {
         console.log(err);
         res.status(500).json(err.message);
       });
+  },
+
+  // Update a user by id
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user found with that id!' })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
   },
 
   // Add a friend to a user's friend list
